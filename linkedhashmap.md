@@ -4,12 +4,22 @@ HashMap 和双向链表合二为一即是 LinkedHashMap。所谓 LinkedHashMap�
 
 由于 LinkedHashMap 是 HashMap 的子类，所以 LinkedHashMap 自然会拥有 HashMap 的所有特性。比如，LinkedHashMap 的元素存取过程基本与 HashMap 基本类似，只是在细节实现上稍有不同。当然，这是由 LinkedHashMap 本身的特性所决定的，因为它额外维护了一个双向链表用于保持迭代顺序。
 
-此外，LinkedHashMap 可以很好的支持 LRU 算法，代码如下：
+此外，LinkedHashMap 可以很好的支持 LRU 算法
+
+## 什么是 LRU
+
+LRU 是Least Recently Used的缩写，即最近最少使用，常用于页面置换算法。
+
+在一般标准的操作系统教材里，会用下面的方式来演示 LRU 原理，假设内存只能容纳3个页大小，按照 7 0 1 2 0 3 0 4 的次序访问页。假设内存按照栈的方式来描述访问时间，在上面的，是最近访问的，在下面的是，最远时间访问的，LRU 就是这样工作的。
+
+![image-20210303143445110](.\img\img0012.jpg)
+
+LRU 实现代码如下：
 
 ```java
 import java.util.*;
 
-// 扩展一下LinkedHashMap这个类，让他实现LRU算法
+// 扩展一下LinkedHashMap这个类，让他实现 LRU 算法
 class LRULinkedHashMap<K,V> extends LinkedHashMap<K,V> {
 	// 定义缓存的容量
 	private int capacity;
